@@ -15,6 +15,7 @@ import Shopxx from '../components/Shop_xx_gzh'
 import Foodaq from '../components/Foodaq_gzh'
 import Corder from '../components/Con_order_gzh'
 import Footer from '../components/Footer_gzh'
+
 Vue.use(Router)
 import Down from "../components/E_me_translate_zhm"
 import Me from "../components/E_me_zhm"
@@ -40,9 +41,9 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    {
-      path: '/', component: E_me_zhm, E_me_translate_zhm, E_password_zhm
-    },
+    {path: '/', component: E_me_zhm},
+    {path: '/down', component: E_me_translate_zhm},
+    {path: '/login', component: E_password_zhm},
     {path: '/me', component: Me},
     {path: '/down', component: Down,},
     {path: '/password', component: password},
@@ -62,28 +63,30 @@ export default new Router({
     {path: '/exchange', component: exchange},
     {path: '/Purchase_record', component: Purchase_record},
     {path: '/again', component: again},
-    {path: '/footer',component:Footer},
-    {path:'/shops',component:Shops},
-    {path:'/shop',component:Shop},
-    {path:'/pingjia',component:Pingjia},
-    {path:'/shopxx',component:Shopxx},
-    {path:'/foodaq',component:Foodaq},
-    {path:'/corder',component:Corder},
+    {path: '/footer', component: Footer},
+    {path: '/shops', component: Shops},
+    {path: '/shop', component: Shop},
+    {path: '/pingjia', component: Pingjia},
+    {path: '/shopxx', component: Shopxx},
+    {path: '/foodaq', component: Foodaq},
+    {path: '/corder', component: Corder},
     {path: '/', component: city},//选择城市路由
     {
-      path: "/index", component: Index, children: [//首页index展示页面路由
-        {path: "", redirect: "shops"},
-        {path: 'shops', component: Shops}//商品列表
-      ]
+      path: "/index", component: Index, children:
+        [//首页index展示页面路由
+          {path: "", redirect: "shops"},
+          {path: 'shops', component: Shops}//商品列表
+        ]
     },
     {path: '/city', component: city},//选择城市的路由
     {path: '/address', component: Address},//搜索地址的路由
     {path: '/search', component: Search},
     {
-      path: '/food', component: Food, children: [//商品分类组件
-        {path: '', redirect: "shops"},
-        {path: 'shops', component: Shops}//商品列表
-      ]
+      path: '/food', component: Food, children:
+        [//商品分类组件
+          {path: '', redirect: "shops"},
+          {path: 'shops', component: Shops}//商品列表
+        ]
     }
   ]
 })

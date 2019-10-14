@@ -58,8 +58,12 @@
         this.val = v;
         //获取输入的值,存进localstorage
         if (!this.val.trim() == "") {
-          this.his = JSON.parse(localStorage.getItem("searchHistory"));
-          this.his.push(this.val);
+          if (!localStorage.getItem("searchHistory")) {
+            this.his.push(this.val);
+          } else {
+            this.his = JSON.parse(localStorage.getItem("searchHistory"));
+            this.his.push(this.val);
+          }
           localStorage.setItem("searchHistory", JSON.stringify(this.his));
           //搜索商家
           this.Myhttp.get(`/v4/restaurants?geohash=${this.latitude},${this.longitude}&keyword=${this.value}`, data => {

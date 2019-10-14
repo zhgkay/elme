@@ -56,7 +56,6 @@
           this.his.push({"title": title, "address": address});
         } else {
           this.his = JSON.parse(localStorage.getItem("placeHistory"));
-          console.log(this.his);
           this.his.push({"title": title, "address": address});
         }
         localStorage.setItem("placeHistory", JSON.stringify(this.his));
@@ -90,7 +89,6 @@
     //在加载页面前展示历史记录
     created() {
       this.obj = JSON.parse(localStorage.getItem("placeHistory"));
-      console.log(localStorage.getItem("placeHistory"));
     }
 
   }

@@ -3,7 +3,7 @@
     <div id="nav">
       <i @click="SearchShop" class="iconfont icon-sousuo"></i>
       <router-link :to="{path:'/city'}"><p class="center">{{name}}</p></router-link>
-      <span class="right">登录|注册</span>
+      <span @click="longin" class="right">登录|注册</span>
     </div>
     <div class="title">
       <swiper :options="swiperOption" ref="mySwiper">
@@ -83,7 +83,6 @@
       swiperSlide
     },
     created() {
-      console.log(this.$store.state.name);
       this.name = this.$store.state.name;
       //请求商品分类
       this.Myhttp.get("/v2/index_entry", data => {
@@ -104,20 +103,27 @@
     methods: {
       SearchShop() {
         this.$router.push({path: '/search'})
+      },
+      longin() {
+        this.$router.push({path: '/login'})
       }
-    },
+    }
+
   }
 </script>
 
 <style scoped>
   @import "//at.alicdn.com/t/font_1281896_yktb2s3o9fb.css";
   @import "//at.alicdn.com/t/font_1451811_mhx158y7w7.css";
+
   .fjshop {
     font-size: 0.8rem;
   }
-  .icon-shangjia{
+
+  .icon-shangjia {
     font-size: 1rem;
   }
+
   #nav {
     color: #fff;
     height: 2.3rem;
