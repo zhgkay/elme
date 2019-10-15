@@ -9,7 +9,6 @@
         <van-dropdown-item v-model="value1" :options="option1"/>
         <van-dropdown-item v-model="value2" :options="option2"/>
         <van-dropdown-item v-model="value3" :options="option3"/>
-
       </van-dropdown-menu>
     </div>
     <router-view></router-view>

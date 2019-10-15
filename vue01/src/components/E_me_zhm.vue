@@ -102,18 +102,20 @@
         </div>
       </router-link>
     </div>
-
+    <Footer_gzh></Footer_gzh>
   </div>
 </template>
 
 <script>
+  import Footer_gzh from "./Footer_gzh";
   export default {
     name: "E_me_zhm",
+    components: {Footer_gzh},
     methods: {
       backIndex() {
         this.$router.push({path: '/index'})
       }
-    }
+    },
   }
 </script>
 

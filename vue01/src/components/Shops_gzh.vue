@@ -37,12 +37,15 @@
         </div>
       </div>
     </router-link>
+    <Footer_gzh></Footer_gzh>
   </div>
 </template>
 
 <script>
+  import Footer_gzh from "./Footer_gzh";
   export default {
     name: "Shops_gzh",
+    components: {Footer_gzh},
     data() {
       return {
         shops: [],
@@ -73,7 +76,6 @@
     right: 0.5rem;
     font-size: 0.5rem;
   }
-
   .siz {
     font-size: 0.8rem;
   }

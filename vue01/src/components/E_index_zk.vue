@@ -33,6 +33,7 @@
     <!--附近商家-->
     <div><i class="icon-shangjia iconfont"></i><span class="fjshop">附近商家</span></div>
     <router-view></router-view>
+
   </div>
 </template>
 

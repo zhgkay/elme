@@ -28,12 +28,15 @@
         <footer @click="clearAll">清空搜索历史</footer>
       </ul>
     </div>
+    <Footer_gzh></Footer_gzh>
   </div>
 </template>
 
 <script>
+  import Footer_gzh from "./Footer_gzh";
   export default {
     name: "SearchShop",
+    components: {Footer_gzh},
     data() {
       return {
         val: "",
