@@ -10,17 +10,21 @@ import Vuex from "vuex"
 import Vant from 'vant';
 import 'vant/lib/index.css';
 import {DropdownMenu, DropdownItem} from 'vant';
-
+import './libs/rem'
 Vue.use(DropdownMenu).use(DropdownItem);
 Vue.use(Vuex);
 Vue.use(Vant);
 const store = new Vuex.Store({
   state: {
-    name: ""
+    name: "",
+    dataID: ''
   },
   mutations: {
     getName(state, name) {
       state.name = name;
+    },
+    setID(state,id){
+      state.dataID = id;
     }
   }
 });
