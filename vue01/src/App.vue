@@ -14,9 +14,10 @@
 </script>
 
 <style>
-  #app {
 
-  }
+html,body{
+  background: #ebebeb;
+}
 
   * {
     padding: 0;
