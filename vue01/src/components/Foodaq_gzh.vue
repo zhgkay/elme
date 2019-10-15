@@ -84,6 +84,7 @@
   .aq,.dj,.cy,.zbook{
     margin-top: 0.5rem;
     background: white;
+    font-size: 0.6rem;
   }
   .jdu{
     padding: 0.5rem;

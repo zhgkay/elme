@@ -100,15 +100,18 @@
   .active {
     padding: 0.5rem;
     font-size: 0.8rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   }
-
+  .res{
+    font-size: 0.7rem;
+  }
   .dd {
     padding: 0.5rem;
   }
 
   .bao {
     margin-top: 0.2rem;
+    font-size: 0.5rem;
   }
 
   .fang {
@@ -176,7 +179,7 @@
     padding: 0.8rem;
     font-size: 0.6rem;
     color: #666;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   }
 
   .mda {

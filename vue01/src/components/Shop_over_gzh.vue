@@ -219,6 +219,7 @@
     position: absolute;
     top: 2.2rem;
     left: 3rem;
+    font-size: 0.5rem;
   }
 
   .sp {
