@@ -14,7 +14,6 @@ import Pingjia from '../components/Pingjia_gzh'
 import Shopxx from '../components/Shop_xx_gzh'
 import Foodaq from '../components/Foodaq_gzh'
 import Corder from '../components/Con_order_gzh'
-import Footer from '../components/Footer_gzh'
 
 Vue.use(Router)
 import Down from "../components/E_me_translate_zhm"
@@ -41,7 +40,6 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    {path: '/', component: E_me_zhm},
     {path: '/down', component: E_me_translate_zhm},
     {path: '/login', component: E_password_zhm},
     {path: '/me', component: Me},
@@ -63,8 +61,6 @@ export default new Router({
     {path: '/exchange', component: exchange},
     {path: '/Purchase_record', component: Purchase_record},
     {path: '/again', component: again},
-    {path: '/footer', component: Footer},
-    {path: '/shops', component: Shops},
     {path: '/shop', component: Shop},
     {path: '/pingjia', component: Pingjia},
     {path: '/shopxx', component: Shopxx},
@@ -87,6 +83,7 @@ export default new Router({
           {path: '', redirect: "shops"},
           {path: 'shops', component: Shops}//商品列表
         ]
-    }
+    },
+    {path: '*', component: city, redirect: 'city'}
   ]
 })
