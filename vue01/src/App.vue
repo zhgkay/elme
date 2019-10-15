@@ -16,7 +16,7 @@
 <style>
 
 html,body{
-  background: #ebebeb;
+  background: #f5f5f5;
 }
 
   * {

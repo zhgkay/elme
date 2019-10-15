@@ -31,7 +31,7 @@
       </swiper>
     </div>
     <!--附近商家-->
-    <div><i class="icon-shangjia iconfont"></i><span class="fjshop">附近商家</span></div>
+    <div class="fj_div"><i class="icon-shangjia iconfont"></i><span class="fjshop">附近商家</span></div>
     <router-view></router-view>
 
   </div>
@@ -118,11 +118,26 @@
   @import "//at.alicdn.com/t/font_1451811_mhx158y7w7.css";
 
   .fjshop {
-    font-size: 0.8rem;
+    font-size: .7rem;
+    margin-left: .5rem;
   }
 
   .icon-shangjia {
-    font-size: 1rem;
+    font-size: .7rem;
+    fill: #999;
+    margin-left: .6rem;
+    vertical-align: middle;
+    width: .6rem;
+    height: .6rem;
+    color: #999;
+  }
+
+  .fj_div {
+    border-top: solid 1px rgba(0, 0, 0, 0.15);
+    margin-top: .5rem;
+    background: #fff;
+    color: #999;
+    padding-top: .5rem;
   }
 
   #nav {

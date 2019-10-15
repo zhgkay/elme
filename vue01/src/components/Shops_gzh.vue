@@ -114,8 +114,6 @@
   }
 
   #shops {
-    margin-top: .5rem;
-    border-top: solid 1px rgba(0, 0, 0, 0.15);
     background: white;
   }
 
@@ -125,7 +123,7 @@
 
   .shop {
     padding: 1rem 0.5rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     position: relative;
   }
 

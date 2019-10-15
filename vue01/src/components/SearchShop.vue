@@ -34,6 +34,7 @@
 
 <script>
   import Footer_gzh from "./Footer_gzh";
+
   export default {
     name: "SearchShop",
     components: {Footer_gzh},
@@ -47,6 +48,7 @@
         history: [],//获取本地存储的记录
         content: "",
         show: true,
+        datas: [],//搜索商铺的数据
       }
     },
     methods: {
@@ -55,31 +57,37 @@
       },
       clearAll() {
         localStorage.removeItem("searchHistory");
-        this.show = false
+        this.show = false;
+        this.his = [];
       },
       searchShop(v) {
         this.val = v;
         //获取输入的值,存进localstorage
         if (!this.val.trim() == "") {
-          if (!localStorage.getItem("searchHistory")) {
-            this.his.push(this.val);
-          } else {
-            this.his = JSON.parse(localStorage.getItem("searchHistory"));
-            this.his.push(this.val);
-          }
-          localStorage.setItem("searchHistory", JSON.stringify(this.his));
           //搜索商家
           this.Myhttp.get(`/v4/restaurants?geohash=${this.latitude},${this.longitude}&keyword=${this.value}`, data => {
-            console.log(data);
-            if (data.status == 0) {
+            if (!Array.isArray(data)) {
               this.content = "很抱歉!无搜索结果";
               console.log(this.content);
               this.show = false;
             } else {
               //请求成功的数据
+              console.log(data);
             }
           });
+          if (!localStorage.getItem("searchHistory")) {
+            this.his.push(this.val);
+          } else {
+            this.his = JSON.parse(localStorage.getItem("searchHistory"));
+            // this.his.find(v => {
+            //   if (v!=this.val) {
+            this.his.push(this.val);
+            // }
+            // })
+          }
+          localStorage.setItem("searchHistory", JSON.stringify(this.his));
         }
+
       },
       //删除历史记录的方法
       remove(i) {

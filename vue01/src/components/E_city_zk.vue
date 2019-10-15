@@ -2,7 +2,7 @@
   <div id="city">
     <div id="nav">
       <span class="left">ele.me</span>
-      <span @click="" class="right">登录|注册</span>
+      <span @click="login" class="right">登录|注册</span>
     </div>
     <div class="title">
       <span>当前定位城市:</span>
@@ -55,6 +55,9 @@
       //点击所有的城市跳转
       cityAll(v, id) {
         this.$router.push({path: '/address', query: {allname: v, cityid: id}});
+      },
+      login() {
+        this.$router.push({path: '/login'})
       }
     },
     created() {
@@ -134,6 +137,11 @@
     line-height: 1.45rem;
     padding: .45rem;
     overflow: hidden;
+  }
+
+  .title, .title1, .title_hot, ul {
+    background: #fff;
+
   }
 
   .title1 {
