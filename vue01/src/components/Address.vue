@@ -56,12 +56,11 @@
           this.his.push({"title": title, "address": address});
         } else {
           this.his = JSON.parse(localStorage.getItem("placeHistory"));
-          //判断本地存储有没有重复的
-          for (let i in this.his) {
-            if (!this.his[i].address == address) {
-              this.his.push({"title": title, "address": address});
-            }
-          }
+          // for (let i in this.his) {
+          //   if (!this.his[i].address == address) {
+          this.his.push({"title": title, "address": address});
+          // }
+          // }
         }
         localStorage.setItem("placeHistory", JSON.stringify(this.his));
         //获取选择的位置跳转到首页

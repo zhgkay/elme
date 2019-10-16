@@ -8,7 +8,7 @@
       <input type="text" placeholder="请输入商家或美食名称" v-model="val">
       <input @click="searchShop(val)" type="button" value="提交">
     </div>
-    <div class="history" v-if="temp">
+    <div class="history">
       <h4>
         搜索历史
       </h4>
@@ -75,7 +75,7 @@
               console.log(data);
             }
           });
-          if (!localStorage.getItem("searchHistory")) {
+          if (!localStorage.getItem("searchHistory")) {0
             this.his.push(this.val);
           } else {
             this.his = JSON.parse(localStorage.getItem("searchHistory"));
