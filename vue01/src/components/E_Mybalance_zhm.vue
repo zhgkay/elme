@@ -50,6 +50,7 @@
   .ie {
     font-size: 1.2rem;
     color: #3190e8;
+
   }
   .mybalance {
     width: 100%;
@@ -94,9 +95,13 @@
   }
   .balance {
     float: right;
+    display: flex;
+    justify-items: center;
   }
   .balance1 {
     color: #3190e8;
+    font-size: .6rem;
+    margin-top: .2rem;
   }
   .money {
     font-size: .7rem;

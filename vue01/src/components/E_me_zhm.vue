@@ -7,23 +7,21 @@
       </div>
     </div>
     <section class="Head_portrait">
-      <router-link :to="{path: '/login'}">
-        <div class="me_Sagnin">
-          <div class="me_zuo">
-            <div class="me_touxiang">
-              <img src="http://elm.cangdu.org/img/default.jpg" alt="" class="me_img1">
-            </div>
-            <div class="me_denglu">
-              <p>登录/注册</p>
-              <i class="icon-shouji iconfont "></i>
-              <span>暂无绑定手机号</span>
-            </div>
+      <div class="me_Sagnin" @click="login">
+        <div class="me_zuo">
+          <div class="me_touxiang">
+            <img :src="avatar" alt="" class="me_img1">
           </div>
-          <div class="me_zjt">
-            <i class="icon-arrow-right iconfont"></i>
+          <div class="me_denglu">
+            <p>{{username}}</p>
+            <i class="icon-shouji iconfont "></i>
+            <span>暂无绑定手机号</span>
           </div>
         </div>
-      </router-link>
+        <div class="me_zjt">
+          <i class="icon-arrow-right iconfont"></i>
+        </div>
+      </div>
     </section>
     <section class="me_youhui">
       <ul>
@@ -34,9 +32,9 @@
             <p>我的余额</p>
           </router-link>
         </li>
-        <li>
+        <li @click="youhui">
           <router-link :to="{path:'/discount'}">
-            <b class="ge">0</b>
+            <b class="ge">{{num}}</b>
             <span>个</span>
             <p>我的优惠券</p>
           </router-link>
@@ -51,7 +49,7 @@
       </ul>
     </section>
     <section class="My_order">
-      <router-link :to="{path:'/order',query:{title:'订单列表'}}" :class="{me_My_order1:true}">
+      <router-link :to="{path:'/myorder',query:{title:'订单列表'}}" :class="{me_My_order1:true}">
         <div class="me_font1">
           <i class="icon-gengduo iconfont i1"></i>
           <span>我的订单</span>
@@ -108,14 +106,54 @@
 
 <script>
   import Footer_gzh from "./Footer_gzh";
+
   export default {
     name: "E_me_zhm",
+    data() {
+      return {
+        num: 0,
+        username: '登录/注册',
+        avatar:"http://elm.cangdu.org/img/default.jpg"
+      }
+    },
     components: {Footer_gzh},
     methods: {
       backIndex() {
         this.$router.push({path: '/index'})
+      },
+      login() {
+        console.log(this.username);
+        if (this.username != '登录/注册') {
+          this.$router.push({path: '/Information'})
+        } else {
+          this.$router.push({path: '/password'})
+        }
+      },
+      youhui() {
+        //从本地址取值
+        let datas = this.storage.get("userinfo");
+        console.log(datas);
+        //判断登录成功后跳转的路由
+        if (!datas) {
+          this.$router.push({path: '/youhui'})
+        } else {
+          this.$router.push({path: '/discount'})
+        }
       }
     },
+    created() {
+      //接受登录后传回来的头像
+      this.avatar=this.$route.query.avatar;
+      //获取本地存储的信息
+      let datas = this.storage.get("userinfo");
+      console.log(datas);
+      //判断用户名红包
+      if (datas) {
+        this.username = datas.username;
+        this.num = datas.gift_amount;
+        console.log(datas.gift_amount);
+      }
+    }
   }
 </script>
 
@@ -187,7 +225,7 @@
   }
 
   .me_img1 {
-    background: #fff;
+    /*background: #fff;*/
     border-radius: 50%;
     width: 2.5rem;
     height: 2.5rem;
@@ -327,4 +365,6 @@
   .i6 {
     color: rgb(74, 165, 240);
   }
+
+
 </style>

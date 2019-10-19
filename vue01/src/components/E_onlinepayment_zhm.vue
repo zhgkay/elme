@@ -1,5 +1,12 @@
 <template>
   <div class="onlinepayment">
+    <!--下载弹出框-->
+    <div class="Eject" v-show="temp2">
+      <div class="round"><span>!</span></div>
+      <p>当前环境无法支付，请打开官方APP进行付款</p>
+      <button @click="order" class="btn2">确认</button>
+    </div>
+
     <div class="header_1">
       <div class="title_wode1">
         <router-link :to="{path:'/vip'}">
@@ -10,8 +17,8 @@
     </div>
     <section class="Surplus">
       <section class="time">
-        <div>支付剩余时间</div>
-        <p class="Count_down">00 : 00 : 00</p>
+        <div id="tm">支付剩余时间</div>
+        <van-count-down :time="time" />
       </section>
     </section>
     <div class="Choice">选择支付方式</div>
@@ -22,8 +29,8 @@
           alt="" class="iz">
         <span>支付宝</span>
       </div>
-      <div @click="changeColor">
-        <i :class="[temp?'dui':'dui1','icon-duihao1', 'iconfont']"></i>
+      <div @click="temp1=true;">
+        <i :class="[temp1?'dui':'dui1','icon-duihao1', 'iconfont']"></i>
       </div>
     </section>
     <section class="Alipay">
@@ -31,11 +38,11 @@
         <i class="icon-weixin iconfont weixin"></i>
         <span>微信</span>
       </div>
-      <div @click="changeColor">
-        <i :class="[temp?'dui1':'dui','icon-duihao1', 'iconfont']"></i>
+      <div @click="temp1=false;">
+        <i :class="[!temp1?'dui':'dui1','icon-duihao1', 'iconfont']"></i>
       </div>
     </section>
-    <p class="confirm">确认支付</p>
+    <p class="confirm"  @click="temp2=true">确认支付</p>
   </div>
 </template>
 
@@ -44,12 +51,15 @@
     name: "E_onlinepayment_zhm",
     data() {
       return {
-        temp: true,
+        temp2: false,
+        temp1: true,
+        time: 1* 30 * 30 * 1000
       }
     },
-    methods: {
-      changeColor() {
-        this.temp = !this.temp;
+    methods:{
+      order(){
+        this.temp2=false;
+        this.$router.push({path:'/myorder'});
       }
     }
   }
@@ -150,7 +160,8 @@
     color: rgb(204, 204, 204);
     font-size: 1rem;
   }
-  .confirm{
+
+  .confirm {
     background-color: #4cd964;
     font-size: .7rem;
     color: #fff;
@@ -161,4 +172,65 @@
     margin-top: .5rem;
     font-weight: 700;
   }
+
+  #tm{
+    font-size: .8rem;
+  }
+
+  .time div[data-v-f2258d8e][data-v-f2258d8e]{
+    font-size: 2rem;
+    margin-bottom: 1.2rem;
+  }
+  .btn2 {
+    width: 100%;
+    font-size: .8rem;
+    color: #fff;
+    font-weight: 700;
+    margin-top: .8rem;
+    background-color: #4cd964;
+    text-align: center;
+    line-height: 1.8rem;
+    border: 1px
+  }
+
+  .Eject {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    margin-top: -6rem;
+    margin-left: -6rem;
+    width: 12rem;
+    animation: tipMove .4s;
+    background-color: #fff;
+    padding-top: .6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 1px;
+    border-radius: .25rem;
+  }
+
+  .round {
+    width: 3rem;
+    height: 3rem;
+    border: .15rem solid #f8cb86;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #f8cb86;
+  }
+
+  .Eject p {
+    font-size: .8rem;
+    color: #333;
+    line-height: .9rem;
+    text-align: center;
+    margin-top: .8rem;
+    padding: 0 .4rem;
+  }
+
+
 </style>

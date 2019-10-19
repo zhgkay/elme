@@ -8,7 +8,7 @@
         <span>会员中心</span>
       </div>
     </div>
-    <p class="wei">为账户<span>15936942353</span>购买会员</p>
+    <p class="wei">为账户<span>{{username}}</span>购买会员</p>
     <section class="middle_vip">
       <router-link :to="{path: '/Membership'}" class="hy">
         <span>会员特权</span>
@@ -53,7 +53,7 @@
     <router-link :to="{path:'/exchange'}" class="dh_vip">
       <span class="duihuan">兑换会员</span>
       <section class="use">
-        <span >使用卡号卡密</span>
+        <span>使用卡号卡密</span>
         <i class="icon-arrow-right iconfont youjiantou"></i>
       </section>
     </router-link>
@@ -69,7 +69,16 @@
 
 <script>
   export default {
-    name: "E_VIP_zhm"
+    name: "E_VIP_zhm",
+    data() {
+      return {
+        username: '',
+      }
+    },
+    created() {
+      let datas = this.storage.get("userinfo");
+      this.username = datas.username;
+    }
   }
 </script>
 
@@ -193,7 +202,8 @@
     border-bottom: 1px solid #f5f5f5;
     padding-right: .7rem;
   }
-  .purchase{
+
+  .purchase {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -201,19 +211,22 @@
     font-size: .7rem;
     line-height: 2.6rem;
   }
-.months{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-right: .7rem;
-  font-size: .7rem;
-  line-height: 2.6rem;
-}
-  .money{
+
+  .months {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: .7rem;
+    font-size: .7rem;
+    line-height: 2.6rem;
+  }
+
+  .money {
     font-weight: 700;
     color: #f60;
   }
-  .purchase1{
+
+  .purchase1 {
     border: .025rem solid #f60;
     border-radius: .2rem;
     line-height: 1.2rem;
@@ -223,7 +236,8 @@
     font-size: .6rem;
     color: #f60;
   }
-  .dh_vip{
+
+  .dh_vip {
     padding: 0 .7rem;
     margin-bottom: .5rem;
     display: flex;
@@ -234,16 +248,19 @@
     padding-right: .7rem;
     margin-top: .5rem;
   }
-  .duihuan{
+
+  .duihuan {
     font-size: .7rem;
     color: #333;
   }
-  .use span{
+
+  .use span {
     font-size: .6rem;
     color: #999;
     margin-right: .2rem;
   }
-  .youjiantou{
+
+  .youjiantou {
     color: rgb(204, 204, 204);
   }
 </style>

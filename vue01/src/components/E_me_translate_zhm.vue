@@ -61,6 +61,7 @@
     float: left;
     padding-left: .3rem;
     padding-top: .3rem;
+    color: #fff;
   }
 
   .title_wode1 {

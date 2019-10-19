@@ -17,7 +17,7 @@
     <div class="title_hot">
       <p>热门城市</p>
       <ul>
-        <li @click="cityAll(v.name,v.id)" class="hotcity" v-for="(v,i) in cityHot" :key="i">{{v.name}}</li>
+        <li @click="cityAll(v.name,v.id,v)" class="hotcity" v-for="(v,i) in cityHot" :key="i">{{v.name}}</li>
       </ul>
     </div>
     <div>
@@ -25,7 +25,7 @@
         <li v-for="(value,key) in cityGroup" :key="key">
           <ul class="city_all">
             <h4>{{key}}<span>(按字母排序)</span></h4>
-            <li @click="cityAll(v.name,v.id)" :class="{cityAll:temp}" v-for="(v,i) in value" :key="i">
+            <li @click="cityAll(v.name,v.id,v)" :class="{cityAll:temp}" v-for="(v,i) in value" :key="i">
               {{v.name}}
             </li>
           </ul>
@@ -50,10 +50,13 @@
     methods: {
       //定位位置的跳转
       searchCity() {
+        this.storage.set("cityinfo", this.cityGuess)
         this.$router.push({path: '/address', query: {allname: this.cityGuess.name, cityid: this.cityGuess.id}})
       },
       //点击所有的城市跳转
-      cityAll(v, id) {
+      cityAll(v, id,city) {
+        //存本地
+        this.storage.set("cityinfo", city)
         this.$router.push({path: '/address', query: {allname: v, cityid: id}});
       },
       login() {

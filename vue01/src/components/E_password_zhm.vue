@@ -10,15 +10,15 @@
     </div>
     <div class="user">
       <ul>
-        <li><input type="text" class="number"></li>
+        <li><input type="text" class="number" v-model="username"></li>
         <li>
-          <input :type="temp ? 'password':'text'" class="password1" name="password">
+          <input :type="temp ? 'password':'text'" class="password1" name="password" v-model="password">
           <div class="on">
             <span :class="[temp? 'sp1':'sp2']">abc...</span>
             <span @click="temp=!temp" :class="[temp?'button1':'button2']"></span>
           </div>
         </li>
-        <li><input type="text" placeholder="验证码" class="code1">
+        <li><input type="text" placeholder="验证码" class="code1" v-model="codel">
           <div>
             <img :src="imgdata" alt="">
           </div>
@@ -31,10 +31,17 @@
     </div>
     <p class="p1">温馨提示：未注册过的账号，登录时将自动注册</p>
     <p class="p1">注册过的账户可凭账户密码登录</p>
-    <button class="password_login">登录</button>
+    <button @click="login" class="password_login">登录</button>
     <router-link :to="{path: '/Reset'}" :class="{Reset:'true'}">
       重置密码?
     </router-link>
+    <!--错误弹出框-->
+    <div class="Eject1" v-show="tf">
+      <div class="round1"><span>!</span></div>
+      <p>{{tck}}</p>
+      <button @click="tf=false" class="btn3">确认</button>
+    </div>
+
   </div>
 </template>
 
@@ -45,14 +52,46 @@
     data() {
       return {
         temp: false,
-        checked: true,
-        imgdata: ""
+        imgdata: "",
+        username: "",
+        password: '',
+        codel: '',
+        tck: '',
+        tf: false,
       }
     },
     methods: {
       reqimg() {
         this.Myhttp.post("/v1/captchas", "", data => {
           this.imgdata = data.code;
+        })
+      },
+      //注册
+      login() {
+        this.Myhttp.post("/v2/login", {
+          username: this.username,
+          password: this.password,
+          captcha_code: this.codel
+        }, data => {
+          console.log(data);
+          //先判断输入框是否为空
+          if (this.username == '' && this.password == '') {
+            this.tck = "请输入用户名/密码/验证码";
+            console.log(this.tck);
+            //如果为空弹出框提示
+            this.tf = !this.tf;
+            //  判断密码和验证码是否正确
+          } else if (data.message) {
+            //提示错误信息
+            this.tck = data.message;
+            this.tf = !this.tf;
+          } else {
+            //如果以上不成立则登录成功
+            this.$router.push({path: '/me', query: {data: data}});
+            this.storage.set('userinfo', data);
+          }
+
+
         })
       }
     },
@@ -86,6 +125,7 @@
     float: left;
     padding-left: .3rem;
     padding-top: .3rem;
+    color: #fff;
   }
 
   .title_wode1 {
@@ -218,4 +258,59 @@
     color: #3b95e9;
     margin-right: .3rem;
   }
+
+  .btn3 {
+    width: 100%;
+    font-size: .8rem;
+    color: #fff;
+    font-weight: 700;
+    margin-top: .8rem;
+    background-color: #4cd964;
+    width: 100%;
+    text-align: center;
+    line-height: 1.8rem;
+    border: 1px;
+    border-bottom-left-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+  }
+
+  .Eject1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -6rem;
+    margin-left: -6rem;
+    width: 12rem;
+    animation: tipMove .4s;
+    background-color: #fff;
+    padding-top: .6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 1px;
+    border-radius: .25rem;
+  }
+
+  .round1 {
+    width: 3rem;
+    height: 3rem;
+    border: .15rem solid #f8cb86;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #f8cb86;
+  }
+
+  .Eject1 p {
+    font-size: .8rem;
+    color: #333;
+    line-height: .9rem;
+    text-align: center;
+    margin-top: .8rem;
+    padding: 0 .4rem;
+  }
+
 </style>

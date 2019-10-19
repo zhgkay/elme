@@ -22,8 +22,8 @@
         </div>
         <!--蜂鸟专送-->
         <div class="birds">
-          <span class="bird">{{v.delivery_mode.text}}</span>
-          <span class="da">{{v.supports[1].name}}</span>
+          <span class="bird" v-if="v.delivery_mode">{{v.delivery_mode.text}}</span>
+          <span class="da" v-if="v.supports[1]">{{v.supports[1].name}}</span>
         </div>
         <!--起送价配送费-->
         <div class="qisong">
@@ -43,12 +43,18 @@
 
 <script>
   import Footer_gzh from "./Footer_gzh";
+
   export default {
     name: "Shops_gzh",
     components: {Footer_gzh},
     data() {
       return {
         shops: [],
+      }
+    },
+    methods: {
+      changeShops(shops) {
+        this.shops = shops;
       }
     },
     created() {
@@ -76,6 +82,7 @@
     right: 0.5rem;
     font-size: 0.5rem;
   }
+
   .siz {
     font-size: 0.8rem;
   }

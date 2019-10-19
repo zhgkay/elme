@@ -10,13 +10,13 @@
     </div>
     <div class="user">
       <ul>
-        <li><input type="text" class="number" placeholder="账号"></li>
-        <li><input type="password" class="number" placeholder="旧密码"></li>
-        <li><input type="password" class="number" placeholder="请输入新密码"></li>
+        <li><input type="text" class="number" placeholder="账号" v-model="username"></li>
+        <li><input type="password" class="number" placeholder="旧密码" v-model="oldpassWord"></li>
+        <li><input type="password" class="number" placeholder="请输入新密码" v-model="newpassword"></li>
         <li>
-          <input class="password1" name="password" placeholder="请确认密码">
+          <input class="password1" name="password" placeholder="请确认密码" v-model="confirmpassword">
         </li>
-        <li><input type="text" placeholder="验证码" class="code1">
+        <li><input type="text" placeholder="验证码" class="code1" v-model="code">
           <div>
             <img :src="imgdata" alt="">
           </div>
@@ -27,7 +27,14 @@
         </li>
       </ul>
     </div>
-    <button class="password_login">登录</button>
+    <button @click="login" class="password_login">登录</button>
+    <!--确认弹出框-->
+    <div class="Eject1" v-show="tf">
+      <div class="round1"><span>!</span></div>
+      <p>{{tck}}</p>
+      <button @click="tf=!true" class="btn3">确认</button>
+    </div>
+
   </div>
 </template>
 
@@ -38,7 +45,16 @@
       return {
         temp: false,
         checked: true,
-        imgdata: ""
+        imgdata: "",
+
+        tck: '',
+        tf: false,
+        //双向绑定的变量
+        username: "",
+        oldpassWord: "",
+        newpassword: "",
+        confirmpassword: "",
+        code: ""
       }
     },
     methods: {
@@ -46,6 +62,55 @@
         this.Myhttp.post("/v1/captchas", "", data => {
           this.imgdata = data.code;
         })
+      },
+      login() {
+        //先判断输入框是否为空
+        if (this.username.trim()== '') {
+          this.tck = "请输入正确的账号"
+          //如果为空弹出框提示
+          this.tf=!this.tf;
+        } else if (this.oldpassWord.trim() == '') {
+          this.tck = "请输入旧密码"
+          //如果为空弹出框提示
+          this.tf=!this.tf;
+        } else if (this.newpassword.trim() == '') {
+          this.tck = "请输入新密码"
+          //如果为空弹出框提示
+          this.tf=!this.tf;
+        } else if (this.confirmpassword.trim() == '') {
+          this.tck = "请输入确认密码"
+          //如果为空弹出框提示
+          this.tf=!this.tf;
+        } else if (this.newpassword != this.confirmpassword) {
+          this.tck = "两次输入的密码不一致"
+          //如果为空弹出框提示
+          this.tf=!this.tf;
+        } else if (this.code == '') {
+          this.tck = "请输入验证码"
+          //如果为空弹出框提示
+          this.tf=!this.tf;
+        } else {
+          this.Myhttp.post("/v2/changepassword", {
+            //这是要请求传参
+            username: this.username,
+            oldpassWord: this.oldpassWord,
+            newpassword: this.newpassword,
+            confirmpassword: this.confirmpassword,
+            captcha_code: this.code
+          }, data => {
+            console.log(data);
+            //
+            if (data.message){
+              this.tck=data.message;
+              this.tf=!this.tf;
+            }else{
+              //如果修改成功弹出提示框
+              this.tck=data.success;
+              this.tf=!this.tf;
+              this.$router.push({path:'/Information',query:{username:this.username}})
+          }
+          })
+        }
       }
     },
     created() {
@@ -53,6 +118,7 @@
         console.log(data)
         this.imgdata = data.code;
       })
+
     }
   }
 </script>
@@ -77,6 +143,7 @@
     float: left;
     padding-left: .3rem;
     padding-top: .3rem;
+    color: #fff;
   }
 
   .title_wode1 {
@@ -203,5 +270,59 @@
     margin-top: 1rem;
     border: none;
     outline: none;
+  }
+
+  .btn3 {
+    width: 100%;
+    font-size: .8rem;
+    color: #fff;
+    font-weight: 700;
+    margin-top: .8rem;
+    background-color: #4cd964;
+    width: 100%;
+    text-align: center;
+    line-height: 1.8rem;
+    border: 1px;
+    border-bottom-left-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+  }
+
+  .Eject1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -6rem;
+    margin-left: -6rem;
+    width: 12rem;
+    animation: tipMove .4s;
+    background-color: #fff;
+    padding-top: .6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 1px;
+    border-radius: .25rem;
+  }
+
+  .round1 {
+    width: 3rem;
+    height: 3rem;
+    border: .15rem solid #f8cb86;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #f8cb86;
+  }
+
+  .Eject1 p {
+    font-size: .8rem;
+    color: #333;
+    line-height: .9rem;
+    text-align: center;
+    margin-top: .8rem;
+    padding: 0 .4rem;
   }
 </style>

@@ -2,13 +2,14 @@
   <div class="footer">
     <van-tabbar
       v-model="active"
-      active-color="skyblue"
+      active-color="rgb(34,169,255)"
       inactive-color="#000"
     >
       <van-tabbar-item :to="{path:'/index'}">
         <i class="iconfont icon-changyonglogo40"></i>
         <br>
-        <span>外卖</span></van-tabbar-item>
+        <span>外卖</span>
+      </van-tabbar-item>
       <van-tabbar-item :to="{path:'/search'}">
         <i class="iconfont icon-zhinanzhen"></i>
         <br>

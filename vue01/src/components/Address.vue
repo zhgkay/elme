@@ -14,14 +14,14 @@
     </div>
     <header>搜索历史</header>
     <ul v-if="hisDom">
-      <li v-for="(v,i) in obj" :key="i" :class="{searchData:true}" @click="getAddres(v.title,v.address)">
-        <h4 :class="{title:true}">{{v.title}}</h4>
+      <li v-for="(v,i) in obj" :key="i" :class="{searchData:true}" @click="getAddres(v)">
+        <h4 :class="{title:true}">{{v.name}}</h4>
         <p :class="{address:true}">{{v.address}}</p>
       </li>
       <footer v-if="hisDom" @click="clearHis" class="p_clear">清空所有</footer>
     </ul>
     <ul>
-      <li v-for="(v,i) in datas" :key="i" :class="{searchData:true}" @click="getAddres(v.name,v.address)">
+      <li v-for="(v,i) in datas" :key="i" :class="{searchData:true}" @click="getAddres(v)">
         <h4 :class="{title:true}">{{v.name}}</h4>
         <p :class="{address:true}">{{v.address}}</p>
       </li>
@@ -44,21 +44,22 @@
           this.datas = data;
           console.log(this.datas);
           if (!this.datas[0]) {
-            this.$set(this.datas, 0, {name: "很抱歉!搜索不到", address: ""})
+            this.$set(this.datas, 0, {title: "很抱歉!搜索不到", address: ""})
           }
         });
       },
       //点击位置的方法
-      getAddres(title, address, v) {
+      getAddres(v) {
         //vuex
-        this.$store.commit("getName", title);
+        this.$store.commit("getName", v);
         if (!localStorage.getItem("placeHistory")) {
-          this.his.push({"title": title, "address": address});
+          this.his.push({"name": v.name, "address": v.address});
         } else {
           this.his = JSON.parse(localStorage.getItem("placeHistory"));
           // for (let i in this.his) {
-          //   if (!this.his[i].address == address) {
-          this.his.push({"title": title, "address": address});
+          //   console.log(this.his[i]);
+          //   if (!this.his[i]) {
+          this.his.push({address: v.address, name: v.name});
           // }
           // }
         }

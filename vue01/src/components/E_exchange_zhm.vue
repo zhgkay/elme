@@ -8,7 +8,7 @@
         <span>兑换会员</span>
       </div>
     </div>
-    <p class="Success">成功兑换后将关联到当前帐号： <span class="number">15923456782</span></p>
+    <p class="Success">成功兑换后将关联到当前帐号： <span class="number">{{username}}</span></p>
     <div class="from_style">
       <input type="text" placeholder="请输入10位卡号" class="numbercolor">
       <input type="password" placeholder="请输入6位卡密" class="passwordcolor">
@@ -26,7 +26,17 @@
 
 <script>
   export default {
-    name: "E_exchange_zhm"
+    name: "E_exchange_zhm",
+    data() {
+      return {
+        username: '',
+      }
+    },
+    created() {
+      let datas = this.storage.get("userinfo");
+      this.username = datas.username;
+    }
+
   }
 </script>
 
@@ -121,19 +131,22 @@
     color: #aaa;
     margin-bottom: .6rem;
   }
-.newvip{
-  padding-left: 2rem;
-  font-size: .5rem;
-  color: #aaa;
-  line-height: .8rem;
-}
-  .a1{
+
+  .newvip {
     padding-left: 2rem;
     font-size: .5rem;
     color: #aaa;
     line-height: .8rem;
   }
-  .a2{
+
+  .a1 {
+    padding-left: 2rem;
+    font-size: .5rem;
+    color: #aaa;
+    line-height: .8rem;
+  }
+
+  .a2 {
     font-size: .5rem;
     color: #aaa;
     line-height: .8rem;
