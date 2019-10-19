@@ -84,7 +84,6 @@
       swiperSlide
     },
     created() {
-      this.name = this.$store.state.name;
       //请求商品分类
       this.Myhttp.get("/v2/index_entry", data => {
         for (let i = 0; i < data.length / 2; i++) {
@@ -99,7 +98,8 @@
         this.shops = data;
       });
       //从Vuex里获取数据
-      this.name = this.$store.state.name;
+      this.name = this.$store.state.name.name;
+      console.log(this.$store.state.name.name);
     },
     methods: {
       SearchShop() {

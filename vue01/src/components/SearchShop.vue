@@ -22,7 +22,7 @@
           {{v}}
           </span>
           <span @click="remove(i)">
-            <i class="iconfont icon-guanbi"></i>
+            <i class="iconfont icon-close"></i>
           </span>
         </li>
         <footer @click="clearAll">清空搜索历史</footer>
@@ -63,7 +63,7 @@
       searchShop(v) {
         this.val = v;
         //获取输入的值,存进localstorage
-        if (!this.val.trim() == "") {
+        if (this.val.trim() != "") {
           //搜索商家
           this.Myhttp.get(`/v4/restaurants?geohash=${this.latitude},${this.longitude}&keyword=${this.value}`, data => {
             if (!Array.isArray(data)) {
@@ -75,15 +75,13 @@
               console.log(data);
             }
           });
-          if (!localStorage.getItem("searchHistory")) {0
+          if (!localStorage.getItem("searchHistory")) {
             this.his.push(this.val);
           } else {
             this.his = JSON.parse(localStorage.getItem("searchHistory"));
-            // this.his.find(v => {
-            //   if (v!=this.val) {
-            this.his.push(this.val);
-            // }
-            // })
+            if (!this.his.includes(this.val)) {
+              this.his.push(this.val);
+            }
           }
           localStorage.setItem("searchHistory", JSON.stringify(this.his));
         }
@@ -91,7 +89,7 @@
       },
       //删除历史记录的方法
       remove(i) {
-        this.history.splice(i, 1)
+        this.history.splice(i, 1);
         let arry = JSON.parse(localStorage.getItem("searchHistory"));
         arry.splice(i, 1);
         localStorage.setItem("searchHistory", JSON.stringify(arry))
@@ -107,7 +105,7 @@
     watch: {
       val() {
         if (this.val == "") {
-          this.content = ""
+          this.content = "";
           this.history = (JSON.parse(localStorage.getItem("searchHistory")));
           this.show = true
         }
@@ -118,7 +116,7 @@
 </script>
 
 <style scoped>
-  @import "//at.alicdn.com/t/font_1281896_sebtej2war.css";
+  @import "//at.alicdn.com/t/font_1281896_pt6k7dhda9.css";
 
   #nav {
     color: #fff;

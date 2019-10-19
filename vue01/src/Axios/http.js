@@ -10,7 +10,7 @@ export default {
   @param response 请求成功的回调
   @param exception 请求异常的回调
   */
-  get(url, response, exception) {
+  get(url,response, exception) {
     Axios({
       method: "get",//请求方式
       url: "https://elm.cangdu.org" + url,//请求地址
