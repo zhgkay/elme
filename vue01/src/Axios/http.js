@@ -1,5 +1,6 @@
 import Axios from "axios"
 
+Axios.defaults.withCredentials = true;
 const TIME_OUT_MS = 60 * 1000;
 
 

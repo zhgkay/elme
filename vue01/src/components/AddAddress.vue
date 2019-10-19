@@ -1,10 +1,8 @@
 <template>
-  <div id="app">
+  <div>
     <div id="nav">
       <span @click="toggle"><i class="iconfont icon-changyongtubiao-xianxingdaochu-zhuanqu-"></i></span>
-      <nav>{{getAllname}}</nav>
-      <p class="center">{{city}}</p>
-      <span @click="toggle" class="right">切换城市</span>
+      <p class="center">新增地址</p>
     </div>
     <div class="search">
       <div>
@@ -12,14 +10,6 @@
       </div>
       <button @click="submit">提交</button>
     </div>
-    <header>搜索历史</header>
-    <ul v-if="hisDom">
-      <li v-for="(v,i) in obj" :key="i" :class="{searchData:true}" @click="getAddres(v.title,v.address)">
-        <h4 :class="{title:true}">{{v.title}}</h4>
-        <p :class="{address:true}">{{v.address}}</p>
-      </li>
-      <footer v-if="hisDom" @click="clearHis" class="p_clear">清空所有</footer>
-    </ul>
     <ul>
       <li v-for="(v,i) in datas" :key="i" :class="{searchData:true}" @click="getAddres(v.name,v.address)">
         <h4 :class="{title:true}">{{v.name}}</h4>
@@ -31,7 +21,7 @@
 
 <script>
   export default {
-    name: "Address",
+    name: "AddAddress",
     methods: {
       //切换城市的方法
       toggle() {
@@ -39,7 +29,6 @@
       },
       //提交按钮的点击事件
       submit() {
-        this.hisDom = false
         this.Myhttp.get(`/v1/pois?city_id=${this.cityId}&keyword=${this.searchValue}&type=search`, data => {
           this.datas = data;
           console.log(this.datas);
@@ -49,28 +38,21 @@
         });
       },
       //点击位置的方法
-      getAddres(title, address, v) {
-        //vuex
-        this.$store.commit("getName", title);
+      getAddres(title, address) {
         if (!localStorage.getItem("placeHistory")) {
           this.his.push({"title": title, "address": address});
         } else {
           this.his = JSON.parse(localStorage.getItem("placeHistory"));
-          // for (let i in this.his) {
-          //   if (!this.his[i].address == address) {
           this.his.push({"title": title, "address": address});
-          // }
-          // }
         }
         localStorage.setItem("placeHistory", JSON.stringify(this.his));
         //获取选择的位置跳转到首页
-        this.$router.push({path: '/index'});
+        this.$router.push({path: '/newaddress',query:{title:title}});
       },
-      //清空所有历史记录
-      clearHis() {
-        localStorage.removeItem("placeHistory");
-        this.hisDom = false;
-      }
+    },
+    created() {
+      let cityinfo = this.storage.get("cityinfo");
+      this.cityId=cityinfo.id;
     },
     data() {
       return {
@@ -80,21 +62,8 @@
         datas: "",//搜索返回的数据
         his: [],//储存用户点击的历史记录
         obj: [],
-        hisDom: true,
       }
     },
-    //获取city组件传来的城市
-    computed: {
-      getAllname() {
-        return this.city = this.$route.query.allname, this.cityId = this.$route.query.cityid;
-      },
-
-    },
-    //在加载页面前展示历史记录
-    created() {
-      this.obj = JSON.parse(localStorage.getItem("placeHistory"));
-    }
-
   }
 </script>
 

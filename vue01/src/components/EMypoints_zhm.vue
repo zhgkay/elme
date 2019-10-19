@@ -1,5 +1,11 @@
 <template>
    <div class="mypoint">
+     <!--下载弹出框-->
+     <div class="Eject" v-show="temp">
+       <div class="round"><span>!</span></div>
+       <p>请在饿了吗APP打开</p>
+       <button @click="temp=false" class="btn2">确认</button>
+     </div>
      <div class="header_1">
        <div class="title_wode1">
          <router-link :to="{path:'/me'}">
@@ -39,7 +45,8 @@
         name: "E_My points_zhm",
       data(){
           return{
-            imgsrc:require("../assets/order.png")
+            imgsrc:require("../assets/order.png"),
+                temp: false
           }
       }
     }
@@ -142,6 +149,58 @@
     font-size: .6rem;
     color: #999;
     margin-top: .5rem;
+  }
+  .Eject {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -6rem;
+    margin-left: -6rem;
+    width: 12rem;
+    animation: tipMove .4s;
+    background-color: #fff;
+    padding-top: .6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 1px;
+    border-radius: .25rem;
+  }
 
+  .round {
+    width: 3rem;
+    height: 3rem;
+    border: .15rem solid #f8cb86;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #f8cb86;
+  }
+
+  .Eject p {
+    font-size: .8rem;
+    color: #333;
+    line-height: .9rem;
+    text-align: center;
+    margin-top: .8rem;
+    padding: 0 .4rem;
+  }
+  .btn2{
+    background-color: #4cd964;
+    font-size: .7rem;
+    color: #fff;
+    text-align: center;
+    line-height: 1.8rem;
+    border-radius: .2rem;
+    margin-top: .5rem;
+    outline: none;
+    border: none;
+    width: 80%;
+    margin: auto;
+    display: block;
+    cursor: pointer;
   }
 </style>

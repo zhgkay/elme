@@ -10,7 +10,11 @@ import Vuex from "vuex"
 import Vant from 'vant';
 import 'vant/lib/index.css';
 import {DropdownMenu, DropdownItem} from 'vant';
+import storage from '../src/Axios/storage'
+
+Vue.prototype.storage = storage;
 import './libs/rem'
+
 Vue.use(DropdownMenu).use(DropdownItem);
 Vue.use(Vuex);
 Vue.use(Vant);
@@ -23,7 +27,7 @@ const store = new Vuex.Store({
     getName(state, name) {
       state.name = name;
     },
-    setID(state,id){
+    setID(state, id) {
       state.dataID = id;
     }
   }
