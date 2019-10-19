@@ -175,6 +175,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid #f5f5f5;
+    background-color: #fff;
+    font-size: .6rem;
+    color: #666;
   }
+h4{
+  font-weight: 400;
+  font-size: .75rem;
+  color: #333;
+  line-height: 3rem;
+  border-bottom: 1px solid #f5f5f5;
+  padding-left: .7rem;
+}
 
 </style>
