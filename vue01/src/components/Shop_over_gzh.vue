@@ -1,77 +1,63 @@
 <template>
-  <div id="shop">
-    <!--商品页头部-->
-    <div class="tou">
-      <div class="header">
-        <router-link :to="{path:'index'}"><i class="icon-Group- iconfont back"></i></router-link>
-        <img class="shopimg" :src="'http://elm.cangdu.org/img/'+ shop.image_path" alt="">
-        <h1>{{shop.name}}</h1>
-        <div class="song">
+  <ul>
+    <!--店铺牌面-->
+    <li class="top">
+        <router-link :to="{path:'/index/shops'}" class="back"><i class="icon-Group- iconfont"></i></router-link>
+        <img class="sbt" :src="'//elm.cangdu.org/img/' + shop.image_path" alt="">
+        <h4>{{shop.name}}</h4>
+        <div class="peis">
           <span>商家配送</span>
-          <span>/分钟必达/</span>
-          <span>配送费￥{{shop.float_delivery_fee}}</span>
+          <span>/分钟送达/</span>
+          <span>{{shop.piecewise_agent_fee}}</span>
+          <div>{{shop.promotion_info}}</div>
         </div>
-        <router-link :to="{path: '/shopxx'}" class="icon-icon-- iconfont you"></router-link>
-        <span class="gonggao">公告:{{shop.promotion_info}}</span>
-        <!--店铺活动-->
-        <div class="hudu">
-          <div class="hdu">
-            <div>
-              <span class="jian">减</span>
-              <span>满30减5，满60减8（APP专享)</span>
-              <div class="yuo" @click="isShow=true">1个活动></div>
-            </div>
-          </div>
+        <router-link class="next" :to="{path: '/shopxx'}"><i class="icon-icon-- iconfont"></i></router-link>
+        <div class="huodong">
+          <span>减</span>
+          <span>满30减5，满60减8（APP专享）</span>
         </div>
-        <!--活动遮罩层-->
-        <div class="zz" v-show="isShow">
-          <h1>{{shop.name}}</h1>
-          <div class="ym">
-            <span>优惠信息</span>
-          </div>
-          <div class="mms">
-            <span class="jian">减</span>
-            <span>满30减5，满60减8（APP专享)</span>
-          </div>
-          <div class="ym2">
-            <span>商家公告</span>
-          </div>
-          <div class="mms">
-            <span class="jian">减</span>
-            <span>满30减5，满60减8（APP专享)</span>
-          </div>
-          <div class="close" @click="isShow=false"><i class="icon-jiaochacross80 iconfont"></i></div>
+        <span class="hds" @click="isShow=true">活动></span>
+    </li>
+    <!--活动遮罩层-->
+    <li class="zzc" v-show="isShow">
+      <h1>{{shop.name}}</h1>
+      <div class="yhmsg">
+        <h5>优惠信息</h5>
+        <div class="huodong">
+          <span>减</span>
+          <span>满30减5，满60减8（APP专享）</span>
         </div>
       </div>
-    </div>
-    <!--商品&评价-->
-    <div class="sp">
-      <van-tabs v-model="active">
-        <van-tab title="商品" :to="{path:''}"></van-tab>
-        <van-tab title="评价" :to="{path:'/pingjia'}"></van-tab>
+        <div class="sjgg">
+          <h5>商家公告</h5>
+          <span>{{shop2.promotion_info}}</span>
+        </div>
+      <div class="close" @click="isShow=false"><i class="icon-jiaochacross80 iconfont"></i></div>
+    </li>
+    <!--商品&评论 组件-->
+    <div class="pros">
+      <van-tabs v-model="active" color="#3190e8">
+        <van-tab title="商品"><Products_gzh></Products_gzh></van-tab>
+        <van-tab title="评论"><Pingjia_gzh></Pingjia_gzh></van-tab>
       </van-tabs>
     </div>
-    <Products_gzh></Products_gzh>
-  </div>
+  </ul>
 </template>
 
 <script>
-  import Vue from 'vue';
-  import {Overlay} from 'vant';
-
-  Vue.use(Overlay);
   import Products_gzh from "./Products_gzh";
-
+  import Pingjia_gzh from "./Pingjia_gzh";
   export default {
-    name: "Shop_over_gzh",
-    components: {Products_gzh},
+    name: "",
+    components: {Pingjia_gzh, Products_gzh},
     data() {
       return {
         shop: {},
         active: 0,
         id: '',
         show: false,
-        isShow: false
+        isShow: false,
+        shop2:{}
       }
     },
     created() {
@@ -87,157 +73,146 @@
       // console.log(this.id);
       this.$store.commit('setID', this.id);
       // console.log(this.$store.state.dataID);
+      this.Myhttp.get('/shopping/restaurant/'+this.id,data=>{
+        // console.log(data);
+        this.shop2 = data;
+      })
     },
   }
 </script>
 
 <style scoped>
   @import "//at.alicdn.com/t/font_1451811_8q69tllytxe.css";
-
-  #shop {
-    position: relative;
-  }
-
-  .ym, .ym2 {
-    text-align: center;
-  }
-
-  .mms {
-    padding: 0.2rem;
-    margin-left: 0.3rem;
-  }
-
-  .ym span {
-    display: inline-block;
-    border: solid 1px white;
-    border-radius: 20px;
-    padding: 0.05rem 0.1rem;
-    margin-top: 4rem;
-    margin-left: -2rem;
-  }
-
-  .zz h1 {
-    margin-top: 0.5rem;
-  }
-
-  .ym2 span {
-    display: inline-block;
-    border: solid 1px white;
-    border-radius: 20px;
-    padding: 0.05rem 0.1rem;
-    margin-left: -2rem;
-  }
-
-  .tou {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 3;
-  }
-
-  .zz {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.9);
-    color: white;
-  }
-
-  .ym2 {
-    margin-top: 1rem;
-  }
-
-  .yuo {
-    width: 1.5rem;
-    display: inline-block;
-    position: absolute;
-    left: 8rem;
-  }
-
-  .header {
-    position: relative;
-    background-image: url("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1876199116,875302461&fm=26&gp=0.jpg");
-    padding: 0.3rem;
-    box-sizing: border-box;
-
-  }
-
-  .hudu {
-    position: absolute;
-    color: white;
-    top: 2.75rem;
-  }
-
-  .jian {
-    background: orangered;
-    padding: 0.01rem 0.05rem;
-    border-radius: 5px;
-  }
-
-  .shopimg {
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 5px;
-  }
-
-  h1 {
-    position: absolute;
-    top: 0.3rem;
-    left: 3rem;
-    display: inline-block;
-    color: white;
-  }
-
-  .back {
-    color: white;
-    position: absolute;
-    left: -0.2rem;
-    top: -0.1rem;
+  /*.top{*/
+    /*position: fixed;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    /*right: 0;*/
+  /*}*/
+  .van-ellipsis{
     font-size: 1rem;
   }
-
-  .song {
+  .top{
+    width: 100%;
+    height: 6rem;
+    background: url("../assets/bg.jpg") no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    padding: 1rem;
+    box-sizing: border-box;
     color: white;
-    position: absolute;
-    top: 1.4rem;
-    left: 3rem;
   }
-
-  .you {
+  .back{
+    display: inline-block;
     position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .icon-Group-,
+  .icon-icon--{
+    font-size: 1.5rem;
     color: white;
-    top: 1.1rem;
+  }
+  .sbt{
+    width: 4rem;
+    height: 4rem;
+    border-radius: 5px;
+    position: absolute;
+    top: 0.7rem;
+    left: 1rem;
+  }
+  .top h4{
+    position: absolute;
+    top: 0.6rem;
+    left: 5.3rem;
+  }
+  .peis{
+    font-size: 0.6rem;
+    position: absolute;
+    top: 2.4rem;
+    left: 5.3rem;
+  }
+  .peis div{
+    margin-top: 0.5rem;
+  }
+  .next{
+    position: absolute;
     right: 0;
-    font-size: 0.8rem;
+    top: 1.5rem;
+    display: inline-block;
   }
-
-  .gonggao {
-    color: white;
+  .huodong{
     position: absolute;
-    top: 2.2rem;
-    left: 3rem;
-    font-size: 0.5rem;
+    top: 4.9rem;
+    font-size: 0.6rem;
   }
-
-  .sp {
+  .huodong span:nth-child(1){
+    background: orangered;
+    border-radius: 5px;
+    padding: 0 0.15rem;
+  }
+  .hds{
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.2rem;
+    font-size: 0.7rem;
+  }
+  .zzc{
     position: fixed;
-    top: 3.1rem;
     left: 0;
     right: 0;
-    z-index: 2;
+    top: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.9);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    z-index: 10;
   }
-
-  .close {
+  .yhmsg{
+    position: relative;
+  }
+  .yhmsg h5{
     position: absolute;
-    top: 13rem;
-    left: 40%;
+    top: 6.5rem;
+    left: 35%;
+    border: 1px solid white;
+    padding: 0 0.3rem;
+    border-radius: 10px;
   }
-
-  .icon-jiaochacross80 {
-    font-size: 2rem;
-    color: #666;
+  .yhmsg .huodong{
+    position: absolute;
+    top: 8rem;
+    font-size: 0.6rem;
+  }
+  .yhmsg .huodong span:nth-child(1){
+    background: orangered;
+    border-radius: 5px;
+    padding: 0 0.15rem;
+  }
+  .sjgg{
+    position: relative;
+  }
+  .sjgg h5{
+    position: absolute;
+    top: 10rem;
+    left: 35%;
+    border: 1px solid white;
+    padding: 0 0.3rem;
+    border-radius: 10px;
+  }
+  .sjgg span{
+    position: absolute;
+    top: 12rem;
+    left: 0;
+    font-size: 0.6rem;
+  }
+  .icon-jiaochacross80{
+    font-size: 3rem;
+  }
+  .close{
+    position: absolute;
+    top: 25rem;
+    left: 40%;
   }
 </style>

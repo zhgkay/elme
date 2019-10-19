@@ -9,13 +9,16 @@ import Food from "../components/Food_zk"
 import E_me_zhm from '../components/E_me_zhm'
 import E_me_translate_zhm from '../components/E_me_translate_zhm'
 import Shop from '../components/Shop_over_gzh'
-import Products from '../components/Products_gzh'
 import Pingjia from '../components/Pingjia_gzh'
 import Shopxx from '../components/Shop_xx_gzh'
 import Foodaq from '../components/Foodaq_gzh'
 import Corder from '../components/Con_order_gzh'
 import business from '../components/E_business_zhm'
 import Addaddress from "../components/AddAddress"
+import Address_gzh from '../components/Address_gzh'
+import Ordermarks from '../components/Ordermarks_gzh'
+import Bill from '../components/Bill_gzh'
+import Plusaddress from '../components/Plusaddress_gzh'
 
 Vue.use(Router)
 import Down from "../components/E_me_translate_zhm"
@@ -88,6 +91,11 @@ export default new Router({
     {path: '/edit', component: edit_address},//编辑地址
     {path: '/newaddress', component: newaddress},//新增地址
     {path: '/youhui', component: youhui},//我的优惠
+    {path: '/corder',name:'corde', component: Corder},
+    {path: '/address_gzh', component: Address_gzh},
+    {path: '/ordermarks', component: Ordermarks},
+    {path: '/bill', component: Bill},
+    {path: '/pulsaddress', component: Plusaddress},
     {path: '/', component: city},//选择城市路由
     {
       path: "/index", component: Index, children:
