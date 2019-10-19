@@ -3,8 +3,8 @@
     <!--评分-->
     <li class="res">
         <div class="zuo">
-            <h1>{{res.food_score.toFixed(1)}}</h1>
-          <h3>综合评价</h3>
+            <h4>{{res.food_score.toFixed(1)}}</h4>
+          <h6>综合评价</h6>
           <div class="bi">高于周边商家{{Number(res.compare_rating*100).toFixed(1)}}%</div>
         </div>
       <div class="you">
@@ -84,8 +84,8 @@
   .res{
     padding: 0.5rem;
     overflow: hidden;
-    border-bottom: 1px solid rgba(0,0,0,0.3);
-    margin-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
   }
   .zuo{
     width: 40%;
@@ -98,11 +98,12 @@
     float: left;
     box-sizing: border-box;
   }
-  h1{
+  h4{
     color: orangered;
   }
   .bi{
     color: #999;
+    font-size: 0.6rem;
   }
   .min{
     font-size: 0.1rem;
@@ -114,11 +115,12 @@
   }
   .youf{
     margin-top: 0.15rem;
+    font-size: 0.6rem;
   }
   .cls{
     padding: 0.2rem;
-    border-top: 1px solid rgba(0,0,0,0.3);
-    border-bottom: 1px solid rgba(0,0,0,0.3);
+    border-top: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
   }
   .bq{
     display: inline-block;
@@ -127,6 +129,7 @@
     margin-left: 0.3rem;
     margin-top: 0.3rem;
     border-radius: 5px;
+    font-size: 0.6rem;
   }
   .bq:nth-child(3){
     background: #f5f5f5;
@@ -137,9 +140,9 @@
     color: white!important;
   }
   .dp{
-    height: 5rem;
+    height: 5.3rem;
     padding: 0.5rem;
-    border-top: 1px solid rgba(0,0,0,0.3);
+    border-top: 1px solid rgba(0,0,0,0.1);
     position: relative;
   }
   .user{
@@ -151,17 +154,20 @@
     position: absolute;
     top: 0.3rem;
     left: 3rem;
+    font-size: 0.7rem;
   }
   .xing{
     position: absolute;
     top: 1.2rem;
     left: 3rem;
+    font-size: 0.7rem;
   }
   .tim{
     position: absolute;
     right: 0.3rem;
     top: 0.3rem;
     color: #999;
+    font-size: 0.6rem;
   }
   .chiimg{
     position: absolute;
@@ -174,17 +180,21 @@
   }
   .biao{
     display: inline-block;
-    white-space:nowrap;
     width:2rem;
-    overflow:hidden;
-    border:1px solid rgba(0,0,0,0.3);
+    border:1px solid rgba(0,0,0,0.1);
+    border-radius: 5px;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
   .biaoqian{
     position: absolute;
-    top: 2rem;
-    left: 0;
+    top: 0;
+    left: 2.5rem;
+    font-size: 0.5rem;
   }
   .res,.cls,.dp{
     background: white;
   }
+
 </style>
